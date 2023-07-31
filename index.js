@@ -70,7 +70,7 @@ Not: Bu fonskiyon, aşağıdaki diğer görevler için de bir callback fonksiyon
 
 function takimSkoru() {
   /*Kodunuzu buraya yazınız*/
-  return Math.floor(Math.random() * (25 - 10) + 10);
+  return Math.floor(Math.random() * 16 + 10);
 }
 //console.log(takimSkoru());
 
@@ -96,12 +96,12 @@ function macSonucu(takimSkoru, num) {
     KonukTakim: 0,
   };
   for (let i = 1; i <= num; i++) {
-    skor.EvSahibi = takimSkoru();
-    skor.KonukTakim = takimSkoru();
+    skor.EvSahibi += takimSkoru();
+    skor.KonukTakim += takimSkoru();
   }
   return skor;
 }
-//console.log(macSonucu(takimSkoru, 2));
+//console.log(macSonucu(takimSkoru, 4));
 
 /* Zorlayıcı Görev 4: periyotSkoru()
 Aşağıdaki periyotSkoru() fonksiyonununda aşağıdakileri yapınız:
@@ -124,7 +124,8 @@ function periyotSkoru(takimSkoru) {
   };
   return skor;
 }
-console.log(periyotSkoru(takimSkoru));
+//console.log(periyotSkoru(takimSkoru));
+
 /* Zorlayıcı Görev 5: skorTabelasi() 
 Aşağıdaki skorTabelasi() fonksiyonunu kullanarak aşağıdakileri yapınız:
   1. İlk parametre olarak Görev 4'te oluşturduğumuz 'periyotSkoru'nu bir değişken olarak almalı
@@ -165,6 +166,7 @@ function skorTabelasi(periyotSkoru, takimSkoru, number) {
   let tumSkor = [];
   let evSahibiToplam = 0;
   let konukToplam = 0;
+
   for (let i = 1; i <= number; i++) {
     if (i >= 5) {
       return console.log("Hatalı sayı!!!");
@@ -177,18 +179,22 @@ function skorTabelasi(periyotSkoru, takimSkoru, number) {
     }
   }
 
+  let i = 1;
+  while (evSahibiToplam == konukToplam) {
+    let periyot = periyotSkoru(takimSkoru);
+    tumSkor.push(
+      `${i}. Uzatma: Ev Sahibi ${periyot.EvSahibi} - Konuk Takım ${periyot.KonukTakim}`
+    );
+    i++;
+    evSahibiToplam += periyot.EvSahibi;
+    konukToplam += periyot.KonukTakim;
+  }
   tumSkor.push(
     `Maç Sonucu: Ev Sahibi ${evSahibiToplam} - Konuk Takım ${konukToplam}`
   );
   return tumSkor;
 }
-console.log("son console", skorTabelasi(periyotSkoru, takimSkoru, 4));
-
-/* `${i}. Periyot: Ev Sahibi ${
-          periyotSkoru2.EvSahibi + periyotSkoru2.EvSahibi
-        } - Konuk Takım ${
-          periyotSkoru2.KonukTakim + periyotSkoru2.KonukTakim
-        }`  (i === 4 && periyotSkoru2.EvSahibi === periyotSkoru2.KonukTakim)*/
+console.log(skorTabelasi(periyotSkoru, takimSkoru, 4));
 
 /* Aşağıdaki satırları lütfen değiştirmeyiniz*/
 function sa() {
